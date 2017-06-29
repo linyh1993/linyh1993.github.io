@@ -3,14 +3,19 @@
 <head>
   <meta charset="utf-8">
   
-  <title>linyh</title>
+  <title>rocketMQ-数据格式 | linyh</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="linyh">
-<meta property="og:url" content="http://yoursite.com/index.html">
+  <meta name="description" content="本文主要是通过阅读rocketMQ-store模块的源码，清晰rocketMQ底层如何组织消息的数据结构，从而更进一步了解rocketMQ的实现原理。">
+<meta name="keywords" content="rocketMQ-store">
+<meta property="og:type" content="article">
+<meta property="og:title" content="rocketMQ-数据格式">
+<meta property="og:url" content="http://yoursite.com/2017/06/29/rocketMq-data-struct/index.html">
 <meta property="og:site_name" content="linyh">
+<meta property="og:description" content="本文主要是通过阅读rocketMQ-store模块的源码，清晰rocketMQ底层如何组织消息的数据结构，从而更进一步了解rocketMQ的实现原理。">
+<meta property="og:updated_time" content="2017-06-29T15:58:39.315Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="linyh">
+<meta name="twitter:title" content="rocketMQ-数据格式">
+<meta name="twitter:description" content="本文主要是通过阅读rocketMQ-store模块的源码，清晰rocketMQ底层如何组织消息的数据结构，从而更进一步了解rocketMQ的实现原理。">
   
   
     <link rel="icon" href="/favicon.png">
@@ -61,9 +66,7 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main">
-  
-    <article id="post-rocketMq-data-struct" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-rocketMq-data-struct" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2017/06/29/rocketMq-data-struct/" class="article-date">
   <time datetime="2017-06-29T15:29:58.000Z" itemprop="datePublished">2017-06-29</time>
@@ -76,8 +79,8 @@
       <header class="article-header">
         
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/06/29/rocketMq-data-struct/">rocketMQ-数据格式</a>
+    <h1 class="article-title" itemprop="name">
+      rocketMQ-数据格式
     </h1>
   
 
@@ -85,12 +88,28 @@
     
     <div class="article-entry" itemprop="articleBody">
       
+        <!-- Table of Contents -->
+        
         <p>本文主要是通过阅读rocketMQ-store模块的源码，清晰rocketMQ底层如何组织消息的数据结构，从而更进一步了解rocketMQ的实现原理。</p>
-        
-          <p class="article-more-link">
-            <a href="/2017/06/29/rocketMq-data-struct/#more">继续阅读全文 »</a>
-          </p>
-        
+<a id="more"></a>
+<p>文章待续</p>
+<h2 id="remoting-网络传输数据"><a href="#remoting-网络传输数据" class="headerlink" title="remoting-网络传输数据"></a>remoting-网络传输数据</h2><p>　
+　
+　
+　</p>
+<h2 id="commitlog-存储消息格式"><a href="#commitlog-存储消息格式" class="headerlink" title="commitlog-存储消息格式"></a>commitlog-存储消息格式</h2><p>　
+　
+　
+　</p>
+<h2 id="consumequeue-消费消息格式"><a href="#consumequeue-消费消息格式" class="headerlink" title="consumequeue-消费消息格式"></a>consumequeue-消费消息格式</h2><p>　
+　
+　
+　</p>
+<h2 id="index-消息索引格式"><a href="#index-消息索引格式" class="headerlink" title="index-消息索引格式"></a>index-消息索引格式</h2><p>　
+　
+　
+　</p>
+
       
     </div>
     <!--
@@ -105,56 +124,32 @@
     -->
   </div>
   
-</article>
- 
-
-
+    
+<nav id="article-nav">
   
-    <article id="post-hello-world" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2017/06/24/hello-world/" class="article-date">
-  <time datetime="2017-06-24T01:54:59.624Z" itemprop="datePublished">2017-06-24</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/06/24/hello-world/">Hello World</a>
-    </h1>
+    <a href="/2017/06/24/hello-world/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">下一篇</strong>
+      <div class="article-nav-title">Hello World</div>
+    </a>
   
+</nav>
 
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo new <span class="string">"My New Post"</span></div></pre></td></tr></table></figure>
-        
-          <p class="article-more-link">
-            <a href="/2017/06/24/hello-world/#more">继续阅读全文 »</a>
-          </p>
-        
-      
-    </div>
-    <!--
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/06/24/hello-world/" data-id="cj4il7t420000gktwsjup2h99" class="article-share-link">分享</a>
-      
-      
-      
-    </footer>
-    -->
-  </div>
   
 </article>
  
-
-
+     
+  <div class="comments" id="comments">
+    
+     
+       
+      <div id="cloud-tie-wrapper" class="cloud-tie-wrapper"></div>
+    
+       
+      
+      
+  </div>
+ 
   
 
 </section>
@@ -162,65 +157,29 @@
     <aside id="sidebar">
   
     
-  <div class="widget-wrap">
-     
-        <h3 class="follow-title ">Follow me</h3>
-     
-    <div class="widget follow">
+
+  
+    
+    <div class="widget-wrap">
+    
+      <div class="widget" id="toc-widget-fixed">
       
-              <a class="github" aria-hidden="true" href="https://github.com/linyh1993" target="_blank" title="Github"></a>
-      
-      
-      
-      
-            <a class="email" aria-hidden="true"  href="mailto:linyh1993@163.com" target="_blank" title="邮箱"></a>
-      
+        <strong class="toc-title">文章目录</strong>
+        <div class="toc-widget-list">
+              <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#remoting-网络传输数据"><span class="toc-number">1.</span> <span class="toc-text">remoting-网络传输数据</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#commitlog-存储消息格式"><span class="toc-number">2.</span> <span class="toc-text">commitlog-存储消息格式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#consumequeue-消费消息格式"><span class="toc-number">3.</span> <span class="toc-text">consumequeue-消费消息格式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#index-消息索引格式"><span class="toc-number">4.</span> <span class="toc-text">index-消息索引格式</span></a></li></ol>
+          </div>
+      </div>
     </div>
-  </div>
 
+  
+    
 
   
     
   
     
-
   
     
-  <div class="widget-wrap">
-    <h3 class="widget-title tagcloud">标签云</h3>
-    <div class="widget tagcloud">
-      <a href="/tags/rocketMQ-store/" style="font-size: 14px;">rocketMQ-store</a>
-    </div>
-  </div>
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title recent-posts">最新文章</h3>
-    <div class="widget">
-      <ul>
-        
-          <li>
-            <a href="/2017/06/29/rocketMq-data-struct/">rocketMQ-数据格式</a>
-          </li>
-        
-          <li>
-            <a href="/2017/06/24/hello-world/">Hello World</a>
-          </li>
-        
-      </ul>
-    </div>
-  </div>
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title archive">归档</h3>
-    <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">June 2017</a><span class="archive-list-count">2</span></li></ul>
-    </div>
-  </div>
-
 
   
 </aside>
