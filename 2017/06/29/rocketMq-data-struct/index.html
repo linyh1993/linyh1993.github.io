@@ -3,19 +3,19 @@
 <head>
   <meta charset="utf-8">
   
-  <title>rocketMQ-数据格式 | linyh</title>
+  <title>RocketMQ专题1:RocketMQ的Log文件格式 | linyh</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="本文主要是通过阅读rocketMQ-store模块的源码，清晰rocketMQ底层如何组织消息的数据结构，从而更进一步了解rocketMQ的实现原理。">
-<meta name="keywords" content="rocketMQ-store">
+  <meta name="description" content="MappedFileMapedFileQueueCommitlogConsumeQueueIndex总结">
+<meta name="keywords" content="RocketMQ专题">
 <meta property="og:type" content="article">
-<meta property="og:title" content="rocketMQ-数据格式">
+<meta property="og:title" content="RocketMQ专题1:RocketMQ的Log文件格式">
 <meta property="og:url" content="http://yoursite.com/2017/06/29/rocketMq-data-struct/index.html">
 <meta property="og:site_name" content="linyh">
-<meta property="og:description" content="本文主要是通过阅读rocketMQ-store模块的源码，清晰rocketMQ底层如何组织消息的数据结构，从而更进一步了解rocketMQ的实现原理。">
-<meta property="og:updated_time" content="2017-06-29T15:58:39.315Z">
+<meta property="og:description" content="MappedFileMapedFileQueueCommitlogConsumeQueueIndex总结">
+<meta property="og:updated_time" content="2017-07-03T12:42:02.704Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="rocketMQ-数据格式">
-<meta name="twitter:description" content="本文主要是通过阅读rocketMQ-store模块的源码，清晰rocketMQ底层如何组织消息的数据结构，从而更进一步了解rocketMQ的实现原理。">
+<meta name="twitter:title" content="RocketMQ专题1:RocketMQ的Log文件格式">
+<meta name="twitter:description" content="MappedFileMapedFileQueueCommitlogConsumeQueueIndex总结">
   
   
     <link rel="icon" href="/favicon.png">
@@ -80,7 +80,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      rocketMQ-数据格式
+      RocketMQ专题1:RocketMQ的Log文件格式
     </h1>
   
 
@@ -90,35 +90,16 @@
       
         <!-- Table of Contents -->
         
-        <p>本文主要是通过阅读rocketMQ-store模块的源码，清晰rocketMQ底层如何组织消息的数据结构，从而更进一步了解rocketMQ的实现原理。</p>
-<a id="more"></a>
-<p>文章待续</p>
-<h2 id="remoting-网络传输数据"><a href="#remoting-网络传输数据" class="headerlink" title="remoting-网络传输数据"></a>remoting-网络传输数据</h2><p>　
-　
-　
-　</p>
-<h2 id="commitlog-存储消息格式"><a href="#commitlog-存储消息格式" class="headerlink" title="commitlog-存储消息格式"></a>commitlog-存储消息格式</h2><p>　
-　
-　
-　</p>
-<h2 id="consumequeue-消费消息格式"><a href="#consumequeue-消费消息格式" class="headerlink" title="consumequeue-消费消息格式"></a>consumequeue-消费消息格式</h2><p>　
-　
-　
-　</p>
-<h2 id="index-消息索引格式"><a href="#index-消息索引格式" class="headerlink" title="index-消息索引格式"></a>index-消息索引格式</h2><p>　
-　
-　
-　</p>
-
+        <h3 id="MappedFile"><a href="#MappedFile" class="headerlink" title="MappedFile"></a>MappedFile</h3><h3 id="MapedFileQueue"><a href="#MapedFileQueue" class="headerlink" title="MapedFileQueue"></a>MapedFileQueue</h3><h3 id="Commitlog"><a href="#Commitlog" class="headerlink" title="Commitlog"></a>Commitlog</h3><h3 id="ConsumeQueue"><a href="#ConsumeQueue" class="headerlink" title="ConsumeQueue"></a>ConsumeQueue</h3><h3 id="Index"><a href="#Index" class="headerlink" title="Index"></a>Index</h3><h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><a id="more"></a>
       
     </div>
     <!--
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/06/29/rocketMq-data-struct/" data-id="cj4il7t4a0002gktw0cucpna5" class="article-share-link">分享</a>
+      <a data-url="http://yoursite.com/2017/06/29/rocketMq-data-struct/" data-id="cj4m6i1sk0000fctwbigl0fbk" class="article-share-link">分享</a>
       
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/rocketMQ-store/">rocketMQ-store</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/RocketMQ专题/">RocketMQ专题</a></li></ul>
 
     </footer>
     -->
@@ -166,7 +147,7 @@
       
         <strong class="toc-title">文章目录</strong>
         <div class="toc-widget-list">
-              <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#remoting-网络传输数据"><span class="toc-number">1.</span> <span class="toc-text">remoting-网络传输数据</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#commitlog-存储消息格式"><span class="toc-number">2.</span> <span class="toc-text">commitlog-存储消息格式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#consumequeue-消费消息格式"><span class="toc-number">3.</span> <span class="toc-text">consumequeue-消费消息格式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#index-消息索引格式"><span class="toc-number">4.</span> <span class="toc-text">index-消息索引格式</span></a></li></ol>
+              <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#MappedFile"><span class="toc-number">1.</span> <span class="toc-text">MappedFile</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#MapedFileQueue"><span class="toc-number">2.</span> <span class="toc-text">MapedFileQueue</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Commitlog"><span class="toc-number">3.</span> <span class="toc-text">Commitlog</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ConsumeQueue"><span class="toc-number">4.</span> <span class="toc-text">ConsumeQueue</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Index"><span class="toc-number">5.</span> <span class="toc-text">Index</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#总结"><span class="toc-number">6.</span> <span class="toc-text">总结</span></a></li></ol>
           </div>
       </div>
     </div>
