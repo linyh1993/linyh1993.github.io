@@ -24,23 +24,22 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
-          node-version: 22
-
-      - name: Install pnpm
-        uses: pnpm/action-setup@v4
-        with:
-          version: 9
-          run_install: false
+          node-version: 20
 
       - name: Setup Pages
         id: pages
         uses: actions/configure-pages@v5
 
+      # 这一步会自动删除可能导致干扰的 pnpm 配置文件（如果存在的话）
+      - name: Clean possible corrupted configs
+        run: rm -f pnpm-workspace.yaml
+
+      # 使用 Node.js 自带的 npm，绕开一切 pnpm 兼容问题
       - name: Install dependencies
-        run: pnpm install --no-frozen-lockfile
+        run: npm install
 
       - name: Build site
-        run: pnpm run build
+        run: npm run build
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
