@@ -29,10 +29,14 @@ export default defineConfig({
     }),
   ],
   i18n: {
-    locales: ["en"],
-    defaultLocale: "en",
+    locales: ["zh", "en"],
+    defaultLocale: "zh",
+    fallback: {
+      en: "zh",
+    },
     routing: {
       prefixDefaultLocale: false,
+      fallbackType: "rewrite",
     },
   },
   markdown: {

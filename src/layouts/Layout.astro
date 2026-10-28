@@ -3,7 +3,7 @@ import { Font } from "astro:assets";
 import { ClientRouter } from "astro:transitions";
 import { getRelativeLocaleUrl } from "astro:i18n";
 import { resolveDefaultOgImagePath } from "@/utils/resolveDefaultOgImagePath";
-import { getAssetPath } from "@/utils/withBase";
+import { getAssetPath, stripBase, stripLocale } from "@/utils/withBase";
 import config from "@/config";
 import "@/styles/global.css";
 
@@ -15,25 +15,29 @@ type Props = {
 };
 
 const { site } = config;
+const locale = Astro.currentLocale ?? config.site.lang;
+const pathWithoutLocale = stripLocale(stripBase(Astro.url.pathname), locale);
+const localizedPath =
+  pathWithoutLocale === "/" ? "" : pathWithoutLocale.replace(/^\/+/, "");
 
 const {
   title = site.title,
   description = site.description,
   ogImage = resolveDefaultOgImagePath(config),
-  canonicalURL = new URL(Astro.url.pathname, Astro.site).href,
+  canonicalURL = new URL(
+    getRelativeLocaleUrl(locale, localizedPath),
+    Astro.site
+  ).href,
 } = Astro.props;
 
 const socialImageURL = new URL(ogImage, Astro.site ?? Astro.url);
-const rssHref = getRelativeLocaleUrl(
-  Astro.currentLocale ?? config.site.lang,
-  "rss.xml"
-);
+const rssHref = getRelativeLocaleUrl(config.site.lang, "rss.xml");
 ---
 
 <!doctype html>
 <html
   dir={site.dir ?? "ltr"}
-  lang={Astro.currentLocale ?? site.lang}
+  lang={locale}
   class="overflow-y-scroll scroll-smooth"
 >
   <head>

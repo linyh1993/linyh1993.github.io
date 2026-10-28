@@ -28,6 +28,8 @@ export default {
     page: "Page",
   },
   home: {
+    greeting: "Hello",
+    intro: "A place to record technology and life.",
     socialLinks: "Social Links",
     featured: "Featured",
     recentPosts: "Recent Posts",
@@ -58,6 +60,8 @@ export default {
     openMenu: "Open menu",
     closeMenu: "Close menu",
     toggleTheme: "Toggle theme",
+    switchToChinese: "切换到中文",
+    switchToEnglish: "Switch to English",
     searchPlaceholder: "Search posts...",
     noResults: "No results found",
     goToPreviousPage: "Go to previous page",

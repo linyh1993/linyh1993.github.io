@@ -26,6 +26,10 @@ const pathWithoutTrailingSlash =
     : relativePath;
 
 const currentPath = stripLocale(pathWithoutTrailingSlash, locale);
+const alternateLocale = locale === "zh" ? "en" : "zh";
+const alternatePath =
+  currentPath === "/" ? "" : currentPath.replace(/^\/+/, "");
+const alternateLocaleUrl = getRelativeLocaleUrl(alternateLocale, alternatePath);
 
 const isActive = (path: string) => {
   const currentPathArray = currentPath.split("/").filter(p => p.trim());
@@ -159,6 +163,20 @@ const isActive = (path: string) => {
             </li>
           )
         }
+        <li class="col-span-1 flex items-center justify-center">
+          <LinkButton
+            href={alternateLocaleUrl}
+            class="focus-outline px-2 py-1 text-sm font-medium"
+            title={alternateLocale === "zh"
+              ? t.a11y.switchToChinese
+              : t.a11y.switchToEnglish}
+            aria-label={alternateLocale === "zh"
+              ? t.a11y.switchToChinese
+              : t.a11y.switchToEnglish}
+          >
+            {alternateLocale === "zh" ? "中" : "EN"}
+          </LinkButton>
+        </li>
       </ul>
     </nav>
   </div>

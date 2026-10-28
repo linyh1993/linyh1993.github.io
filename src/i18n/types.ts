@@ -26,6 +26,8 @@ export interface UIStrings {
     page: string;
   };
   home: {
+    greeting: string;
+    intro: string;
     socialLinks: string;
     featured: string;
     recentPosts: string;
@@ -56,6 +58,8 @@ export interface UIStrings {
     openMenu: string;
     closeMenu: string;
     toggleTheme: string;
+    switchToChinese: string;
+    switchToEnglish: string;
     searchPlaceholder: string;
     noResults: string;
     goToPreviousPage: string;

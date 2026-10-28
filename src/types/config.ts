@@ -9,9 +9,9 @@ interface SiteConfig {
   author: string;
   /** Author profile URL (used in structured data) */
   profile?: string;
-  /** Fallback OG image filename in /public, e.g. "og.jpg" */
+  /** Fallback OG image filename in /public, e.g. "og.png" */
   ogImage?: string;
-  /** HTML lang attribute, defaults to "en" */
+  /** HTML lang attribute, defaults to "zh" */
   lang?: string;
   /** IANA timezone for post dates, e.g. "Asia/Bangkok" */
   timezone?: string;
